@@ -88,7 +88,7 @@ inotifywait -q -m -e create --format '%w%f' \$SCANDIR | while read FILE; do
 	echo "File \$FILE has been detected. Scanning it for viruses now ..." &>> \$LOGFILE
 	clamscan --remove=yes --bell \$FILE &>> \$LOGFILE
 	if [ \$? -eq 1 ]; then
-		notify-send 'Virus Found' "\$FILE has been removed for your safety." --icon=dialog-warning
+		notify-send 'Virus Found' "\$(basename \$FILE) has been removed for your safety." --icon=dialog-warning
 	fi
 	echo &>> \$LOGFILE
 done
