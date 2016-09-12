@@ -83,7 +83,7 @@ SCANDIR="\$HOME \$(find \$HOME -maxdepth 1 -type d | grep -i 'desktop\|downloads
 
 touch \$LOGFILE
 
-inotifywait -q -m -e create --format '%w%f' \$SCANDIR | while read FILE; do
+inotifywait -q -m -e create -e move -e modify --format '%w%f' \$SCANDIR | while read FILE; do
 	date &>> \$LOGFILE
 	echo "File \$FILE has been detected. Scanning it for viruses now ..." &>> \$LOGFILE
 	clamscan --scan-archive=yes --scan-pdf=yes --scan-elf=yes --scan-ole2=yes --remove=yes \$FILE &>> \$LOGFILE
