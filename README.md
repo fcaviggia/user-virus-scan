@@ -1,5 +1,6 @@
 # user-virus-scan
-Script to use inotify and clamscan (clamav) to monitor directories for files containing viruses
+
+Shell script which uses inotify and clamscan (clamav) to monitor directories for files containing viruses. Developed work like Fireclam to scan downloaded files from Firefox and Chrome.
 
 # Requirements
 
