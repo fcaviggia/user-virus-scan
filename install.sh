@@ -79,7 +79,7 @@ cat <<EOF > /usr/local/bin/virus-scan.sh
 #!/bin/sh
 
 LOGFILE="\$HOME/.virus-scan.log"
-SCANDIR="\$HOME/Desktop \$HOME/Downloads"
+SCANDIR="\$HOME \$(find \$HOME -maxdepth 1 -type d | grep -i 'desktop\|downloads\|documents\|pictures')"
 
 touch \$LOGFILE
 
@@ -91,6 +91,7 @@ inotifywait -q -m -e create --format '%w%f' \$SCANDIR | while read FILE; do
 		notify-send 'Virus Found' "\$(basename \$FILE) has been removed for your safety." --icon=dialog-warning
 	fi
 	echo &>> \$LOGFILE
+	SCANDIR="\$HOME \$(find \$HOME -maxdepth 1 -type d | grep -i 'desktop\|downloads\|documents\|pictures')"
 done
 
 exit 0
