@@ -86,7 +86,7 @@ touch \$LOGFILE
 inotifywait -q -m -e create --format '%w%f' \$SCANDIR | while read FILE; do
 	date &>> \$LOGFILE
 	echo "File \$FILE has been detected. Scanning it for viruses now ..." &>> \$LOGFILE
-	clamscan --remove=yes --bell \$FILE &>> \$LOGFILE
+	clamscan --scan-archive=yes --scan-pdf=yes --scan-elf=yes --scan-ole2=yes --remove=yes \$FILE &>> \$LOGFILE
 	if [ \$? -eq 1 ]; then
 		notify-send 'Virus Found' "\$(basename \$FILE) has been removed for your safety." --icon=dialog-warning
 	fi
