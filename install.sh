@@ -86,6 +86,11 @@ touch \$LOGFILE
 inotifywait -q -m -e create -e move --format '%w%f' \$SCANDIR | while read FILE; do
 	date &>> \$LOGFILE
 	echo "File \$FILE has been detected. Scanning it for viruses now ..." &>> \$LOGFILE
+	# Sophos Free 
+        if [ -x /usr/bin/sweep ]; then
+                /usr/bin/sweep \$FILE &>> \$LOGFILE
+        fi
+        # ClamAV Scan
 	clamscan --scan-archive=yes --scan-pdf=yes --scan-elf=yes --scan-ole2=yes --remove=yes \$FILE &>> \$LOGFILE
 	if [ \$? -eq 1 ]; then
 		notify-send 'Virus Found' "\$(basename \$FILE) has been removed for your safety." --icon=dialog-warning
